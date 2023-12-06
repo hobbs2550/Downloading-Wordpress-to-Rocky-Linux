@@ -1,0 +1,4 @@
+**Instructions on how to download Wordpress to Rocky Linux 8**
+# The following are commands that I put in the command prompt to download Wordpress to Rocky linux 8:
+
+1. The first step was installing Apache to Rocky Linux
