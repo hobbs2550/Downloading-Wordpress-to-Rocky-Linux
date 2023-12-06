@@ -1,4 +1,34 @@
 **Instructions on how to download Wordpress to Rocky Linux 8**
 # The following are commands that I put in the command prompt to download Wordpress to Rocky linux 8:
 
-1. The first step was installing Apache to Rocky Linux
+1. The first step was updating dnf and installing wget
+    sudo dnf update
+    sudo dnf install wget nano -y
+2. The second step was installing apache, enabiling, and checkingit to see if it is working properly.
+    sudo dnf install httpd -y
+    sudo systemctl enable --now httpd
+    systemctl status httpd
+3. The third step was enabiling rewrite module and adding the following to the file.
+    sudo nano /etc/httpd/conf/httpd.conf
+    LoadModule rewrite_module modules/mod_rewrite.so
+4. The fourth step was installing MariaDB 
+    sudo dnf install mariadb
+    sudo systemctl enable --now mariadb
+    systemctl status mariadb
+    sudo mysql_secure_installation
+5. The fifth step was installing PHP 8.0
+    sudo dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    sudo dnf update -y
+    sudo dnf module reset php -y
+    sudo dnf module enable php:remi-8.0 -y
+    sudo dnf update -y
+    sudo dnf install php php-{bz2,mysqli,curl,gd,intl,common,mbstring,xml}
+6. The sixth step was restarting the Apache server.
+    sudo systemctl restart httpd
+7. The seventh step was creating a database.
+    sudo mysql
+    CREATE DATABASE yourdb;
+    CREATE USER 'user'@localhost IDENTIFIED BY 'password';
+    ALL PRIVILEGES ON yourdb.* TO 'user'@localhost IDENTIFIED BY 'password';
+    FLUSH PRIVILEGES;
+    exit;
